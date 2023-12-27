@@ -62,7 +62,8 @@ def scanpay():
                 st.session_state.basket_df.loc[st.session_state.basket_df['Product'] == product_name, 'Quantity'] += quantity
             else:
                 # Add a new row if the product is not in the basket
-                st.session_state.basket_df = st.session_state.basket_df.append({'Product': product_name, 'Quantity': quantity}, ignore_index=True)
+                new_row = pd.DataFrame({'Product': [product_name], 'Quantity': [quantity]})
+                st.session_state.basket_df = pd.concat([st.session_state.basket_df, new_row], ignore_index=True)
 
         return prediction
 
